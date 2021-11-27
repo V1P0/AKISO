@@ -27,7 +27,10 @@ echo "uptime:" $TimeD "d" $TimeH "h" $TimeM "m" $TotSec "s"
 
 echo $(cat /proc/loadavg | awk '{print "average load 1 min:"$1" | 5 min:"$2" | 15 min:"$3}')
 
+if test -f /sys/class/power_supply/BAT1/capacity
+then
 echo "battery percentage: $(cat /sys/class/power_supply/BAT1/capacity) %"
+fi
 
 MemoryTotal=$(awk '{print $2}' /proc/meminfo | head -n1)
 MemoryFree=$(awk '{print $2}' /proc/meminfo | head -n2 | tail -n1)
