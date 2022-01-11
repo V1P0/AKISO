@@ -1,0 +1,49 @@
+section .data
+	mes:	db	'0'
+	len:	equ	$-mes ;zawsze 1 :)
+	nl:	db	`\n`
+section .text
+	global _start
+_start:
+	mov r10, 0
+	mov rax, 123456
+div:
+	xor rdx, rdx
+	mov r8, 16
+	div r8
+	push rdx
+	add r10, 1
+	cmp rax, 0
+	jne div
+comp:
+	xor r9,r9
+	pop r9
+	cmp r9, 10
+	jl less
+more:
+	add r9, 87
+	jmp print
+less:
+	add r9, 48
+
+print:
+	mov [mes], r9b
+	mov rax,1
+	mov rdi,1
+	mov rsi,mes
+	mov rdx,1
+
+	syscall
+	add r10, -1  
+	cmp r10, 0
+	jne comp
+	mov rax,1 
+	mov rdi,1
+	mov rsi,nl 
+	mov rdx,1
+
+	syscall
+
+	mov rax,60
+	mov rdi,0
+	syscall

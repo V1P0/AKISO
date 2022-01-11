@@ -1,0 +1,82 @@
+section .data
+	mes:	db	'0'
+	len:	equ	$-mes ;zawsze 1 :)
+	nl:	db	`\n`
+    space:  db      ' '
+
+section .text
+	global _start
+_start:
+	mov r10, 0
+	mov rax, 1234
+div:
+	xor rdx, rdx
+	mov r8, 10
+	div r8
+	push rdx
+	add r10, 1
+	cmp rax, 0
+	jne div
+print:
+        pop rax
+        mov r8, 2
+        div r8
+	push rdx
+        div r8
+	push rdx
+        div r8
+	push rdx
+        div r8
+	push rdx
+        pop r9
+        add r9, 48
+        mov [mes], r9b
+	mov rax,1
+	mov rdi,1
+	mov rsi,mes
+	mov rdx,1
+	syscall
+        pop r9
+        add r9, 48
+        mov [mes], r9b
+	mov rax,1
+	mov rdi,1
+	mov rsi,mes
+	mov rdx,1
+	syscall
+        pop r9
+        add r9, 48
+        mov [mes], r9b
+	mov rax,1
+	mov rdi,1
+	mov rsi,mes
+	mov rdx,1
+	syscall
+        pop r9
+        add r9, 48
+        mov [mes], r9b
+	mov rax,1
+	mov rdi,1
+	mov rsi,mes
+	mov rdx,1
+	syscall
+	mov rax,1
+	mov rdi,1
+	mov rsi,space
+	mov rdx,1
+	syscall
+        add r10, -1
+        cmp r10, 0
+        jne print
+
+end:
+	mov rax,1 
+	mov rdi,1
+	mov rsi,nl 
+	mov rdx,1
+
+	syscall
+
+	mov rax,60
+	mov rdi,0
+	syscall

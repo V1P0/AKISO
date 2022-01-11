@@ -1,0 +1,13 @@
+all: z1 z2
+
+z1: z1.o
+	 ld z1.o -o z1
+	 rm z1.o
+z1.o:
+	 nasm -felf64 z1.asm
+
+z2: z2.o
+	 ld z2.o -o z2
+	 rm z2.o
+z2.o:
+	 nasm -felf64 z2.asm
